@@ -6,16 +6,18 @@
 /*   By: houssana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 09:57:11 by houssana          #+#    #+#             */
-/*   Updated: 2017/05/22 14:11:41 by houssana         ###   ########.fr       */
+/*   Updated: 2017/05/22 14:53:45 by houssana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "get_next_line.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
+#include <fcntl.h>
 
 # define PRINT_FUNC(func, is_ft) \
 	printf(#func); \
@@ -187,6 +189,21 @@ int		main(int argc, char **argv)
 			printf("%s\n", l->content);
 			l = l->next;
 		}
+	}
+
+	if (!strcmp(argv[1], "get_next_line"))
+	{
+	char	*line;
+	int		fd;
+
+			fd = open(argv[2], O_RDONLY);
+			while (get_next_line(fd, &line))
+			{
+				ft_putstr(line);
+				ft_putstr("\n");
+				free(line);
+			}
+			close(fd);
 	}
 	return (0);
 }
